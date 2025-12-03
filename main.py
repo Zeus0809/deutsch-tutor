@@ -1,5 +1,12 @@
+from llm import chat
+
 def main():
-    pass
+    prompt = input('Ask me anything: [q to quit]')
+    while prompt != "q":
+        chat(prompt)
+        prompt = input('Ask me anything: [q to quit]')
+
+
 
 
 if __name__ == "__main__":
