@@ -1,11 +1,14 @@
-from llm import chat
+import llm
 
 def main():
+
+    llm.download()
+    llm.init()
+
     prompt = input('Ask me anything: [q to quit]')
     while prompt != "q":
-        chat(prompt)
+        llm.chat(prompt)
         prompt = input('Ask me anything: [q to quit]')
-
 
 
 
