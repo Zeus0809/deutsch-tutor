@@ -1,6 +1,14 @@
+from llm import Tutor
+
 def main():
 
-    pass
+    tutor = Tutor()
+
+    print(tutor.get_sample_sentence())
+
+    translation = input('Please type your translation: ')
+    
+    print(tutor.check_translation(translation))
 
 
 
