@@ -1,16 +1,19 @@
-from llm import Tutor
+from fastapi import FastAPI
+from tutor import Tutor
 
-def main():
+app = FastAPI()
+tutor = Tutor()
 
-    tutor = Tutor()
+@app.get('/')
+def home():
+    return {"message" : "Welcome to Deutsch Tutor!"}
 
-    print(tutor.get_sample_sentence())
+@app.get('/sentence')
+def get_sentence():
+    return {"sentence" : tutor.get_sample_sentence()}
 
-    translation = input('Please type your translation: ')
-    
-    print(tutor.check_translation(translation))
+@app.post('/check')
+def check_translation(translation: str):
+    return {"feedback" : tutor.check_translation(translation)}
 
 
-
-if __name__ == "__main__":
-    main()
