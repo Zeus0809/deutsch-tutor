@@ -1,14 +1,22 @@
 import { useState } from 'react'
 import './App.css'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function App() {
   const [started, setStarted] = useState(false)
   const [sentence, setSentence] = useState('')
 
-  const handleStart = () => {
+  const handleStart = async () => {
     // You'll add the backend call here
-    setSentence('This is a sample sentence') // Placeholder
-    setStarted(true)
+    try {
+      const response = await fetch(`${API_BASE_URL}/sentence`);
+      const data = await response.json();
+      setSentence(data.sentence);
+      setStarted(true);
+    } catch (error) {
+      console.error('Error: ', error);
+    }
   }
 
   return (
