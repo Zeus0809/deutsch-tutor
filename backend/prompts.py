@@ -11,8 +11,8 @@ Include ONLY the sample sentence in your response.
 
 CHECK_SENTENCE = """
 Please evaluate the following translation for correctness and provide brief feedback in English.
-If the translation is 100 percent correct, say that and nothing else.
-If the translation has one or more mistakes, briefly explain EACH mistake in a bullet list.
+If the translation has no mistakes, say `Correct!` and then generate a slightly harder sentence.
+If the translation has one or more mistakes, briefly explain EACH mistake in a bullet list. Then ask the user to try to translate again.
 TRANSLATION:
 """
 
