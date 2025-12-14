@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from tutor import Tutor
+from rest_models import *
 
 app = FastAPI()
 app.add_middleware(
@@ -22,7 +23,7 @@ def get_sentence():
     return {"sentence" : tutor.get_sample_sentence()}
 
 @app.post('/check')
-def check_translation(translation: str):
-    return {"feedback" : tutor.check_translation(translation)}
+def check_translation(request: TranslationRequest):
+    return {"feedback" : tutor.check_translation(request.translation)}
 
 
