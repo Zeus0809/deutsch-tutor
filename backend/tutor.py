@@ -9,7 +9,7 @@ class Tutor:
         load_dotenv()
         self._apikey = os.getenv('GEMINI_API_KEY')
         self._client = genai.Client(api_key=self._apikey)
-        self.model = 'gemini-2.5-pro'
+        self.model = 'gemini-2.5-flash-lite'
         self.system_prompt = prompts.SYSTEM
 
     def get_sample_sentence(self) -> str:

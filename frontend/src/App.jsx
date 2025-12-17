@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import './App.css'
+import logo from './assets/logo.png'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -79,7 +80,7 @@ function App() {
       // Add empty message and apply typewriter effect
       const messageIndex = 0;
       setMessages([{ type: 'tutor', text: '' }]);
-      typewriterEffect(messageIndex, `Translate the following sentence into German: ${data.sentence}`);
+      typewriterEffect(messageIndex, `Translate the following sentence into German:\n ${data.sentence}`);
     } catch (error) {
       console.error('Error: ', error);
       setLoading(false);
@@ -135,7 +136,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className={started ? 'logo-small' : ''}>🇩🇪 Deutsch Tutor</h1>
+      <img src={logo} alt="Deutsch Tutor" className={started ? 'logo logo-small' : 'logo'} />
       
       {!started ? (
         <div className="start-section">
