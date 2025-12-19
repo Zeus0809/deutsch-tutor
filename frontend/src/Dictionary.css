@@ -1,0 +1,170 @@
+/* Dictionary container - matches chat section height and styling */
+.dictionary-container {
+  width: 25vw;
+  height: 90vh;
+  background: #faf8f3;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid var(--color-black);
+}
+
+/* Black header with white text */
+.dictionary-header {
+  background: var(--color-black);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Content area with padding */
+.dictionary-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Input section - transparent input with send button */
+.dictionary-input-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dictionary-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-black);
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  color: var(--color-black);
+  background: transparent;
+}
+
+.dictionary-input::placeholder {
+  color: #999;
+}
+
+.dictionary-input:focus {
+  border-color: var(--color-red);
+}
+
+.dictionary-send-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--color-red);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding: 0;
+  transition: background 0.3s;
+}
+
+.dictionary-send-btn:hover {
+  background: var(--color-black);
+}
+
+/* Spinner container - appears under send button */
+.dictionary-spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* Wrapper to combine yellow and white areas with no gaps */
+.result-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main result area - yellow background */
+.main-result {
+  background: var(--color-yellow);
+  padding: 1.5rem;
+  border-radius: 8px 8px 0 0;
+  color: var(--color-black);
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  border: 2px solid var(--color-black);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.plus-expander {
+  position: absolute;
+  top: 32%;
+  right: 3.2rem;
+  width: 50px;
+  border-radius: 8px 0 0 0;
+  border: solid var(--color-black);
+  border-right: none;
+  border-bottom: none;
+  background: white;
+  font-size: 0.8rem;
+}
+
+.plus-expander:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.674);
+}
+
+/* Translation list - white background seamlessly connected to yellow area */
+.translation-list {
+  background: white;
+  padding: 1.5rem;
+  border: 1px solid var(--color-black);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.translation-list.collapsed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  border-bottom: none;
+}
+
+/* Individual translation item */
+.translation-item {
+  padding: 0.8rem;
+  background: #f5f5f5;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.translation-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: 0.3rem;
+}
+
+.translation-comments {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+

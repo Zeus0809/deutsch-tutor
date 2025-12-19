@@ -7,9 +7,9 @@ The purpose of this is for the user to be able to look up individual words or ph
 - A black header with the white word 'DICTIONARY' centered in it
 - A transparent input area with 'Look Up Word/Phrase' placeholder text
 - A Send button styled like the one from main chat
-- A spinner appearing under the Send button, styled like the one in main chat
-- A 'main result' area, styled in yellow, containing the most relevant translation
-- A clickable downward arrow that opens a collapsible list of other possible translation options and brief explanantions of each
+- A spinner appearing under the Send button, styled like the one in main chat. The spinner appears only for the duration of the API call.
+- A 'main result' area, styled in yellow, containing the most relevant translation. Appears only after a successful API call.
+- A clickable 'more' buttom that opens a collapsible list of other possible translation options and brief explanantions of each. Appears only after a successful API call.
 
 ### Backend:
 - A new FastAPI route '/dictionary' (main.py)
