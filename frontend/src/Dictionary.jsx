@@ -7,7 +7,7 @@ function Dictionary() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [mainResult, setMainResult] = useState('')
-  const [otherTranslations, setOtherTranslations] = useState([])
+  const [allResults, setAllResults] = useState([])
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleLookup = async () => {
@@ -15,19 +15,29 @@ function Dictionary() {
 
     setLoading(true);
     // TODO: API call to /dictionary endpoint will be implemented later
-    
-    
-    // Mock response for UI testing
-    setTimeout(() => {
-      setMainResult('das Haus');
-      setOtherTranslations([
-        { translation: 'die Wohnung', comments: 'apartment or flat' },
-        { translation: 'das Gebäude', comments: 'building (general)' },
-        { translation: 'das Heim', comments: 'home (more poetic)' }
-      ]);
+    try {
+      const response = await fetch(`${API_BASE_URL}/dictionary`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ expression: input })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
       setLoading(false);
-      setIsExpanded(false);
-    }, 1000);
+      // Populate mainResult
+      setMainResult(data.results[0].translation)
+      // Populate comments
+      setAllResults(data.results)
+      // hide the list
+      setIsExpanded(false)
+    } catch (error) {
+      console.error('Error: ', error);
+      setLoading(false);
+      // friendly user error
+      setMainResult('Oops! Error 0_0');
+    }
   }
 
   const handleKeyPress = (e) => {
@@ -71,14 +81,12 @@ function Dictionary() {
               {mainResult}
             </div>
             <div className="plus-expander" onClick={toggleExpanded}>more</div>
-            {otherTranslations && (
+            {allResults && (
               <div className={`translation-list ${!isExpanded ? 'collapsed' : ''}`}>
-                {otherTranslations.map((item, index) => (
+                {allResults.map((item, index) => (
                   <div key={index} className="translation-item">
                     <div className="translation-text">{item.translation}</div>
-                    {item.comments && (
-                      <div className="translation-comments">{item.comments}</div>
-                    )}
+                    <div className="translation-comments">{item.comments}</div>
                   </div>
                 ))}
               </div>

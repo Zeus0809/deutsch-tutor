@@ -20,10 +20,13 @@ def home():
 
 @app.get('/sentence')
 def get_sentence():
-    return {"sentence" : tutor.get_sample_sentence()}
+    return {"sentence" : tutor.get_sample_sentence()} # returns str
 
 @app.post('/check')
 def check_translation(request: TranslationRequest):
-    return {"feedback" : tutor.check_translation(request.translation)}
+    return {"feedback" : tutor.check_translation(request.translation)} # returns str
 
+@app.post('/dictionary')
+def look_up(request: DictionaryRequest):
+    return {"results" : tutor.look_up(request.expression)} # returns List[Dict]
 
