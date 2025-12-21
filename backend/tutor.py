@@ -38,7 +38,10 @@ class Tutor:
             contents=prompt,
             config={ 'response_mime_type': 'application/json' }
         )
-        output = json.loads(response.text)
+        try:
+            output = json.loads(response.text)
+        except json.JSONDecodeError as e:
+            raise ValueError("Failed to parse dictionary response from LLM as JSON.") from e
         return output
 
 
