@@ -23,12 +23,15 @@ def home():
 
 @app.get('/api/sentence')
 def get_sentence():
-    return {"sentence" : tutor.get_sample_sentence()}
+    return {"sentence" : tutor.get_sample_sentence()} # returns str
 
 @app.post('/api/check')
 def check_translation(request: TranslationRequest):
-    return {"feedback" : tutor.check_translation(request.translation)}
+    return {"feedback" : tutor.check_translation(request.translation)} # returns str
 
+@app.post('/api/dictionary')
+def look_up(request: DictionaryRequest):
+    return {"results" : tutor.look_up(request.expression)} # returns List[Dict]
 # Build the path: /app/main.py -> /app -> /app/static
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 
