@@ -4,7 +4,7 @@ import './App.css'
 import logo from './assets/logo.png'
 import Dictionary from './Dictionary'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''; // leave empty if no env is set (production)
 
 function App() {
   const [started, setStarted] = useState(false)
@@ -75,7 +75,7 @@ function App() {
     setLoading(true);
     // backend call to generate first sentence
     try {
-      const response = await fetch(`${API_BASE_URL}/sentence`);
+      const response = await fetch(`${API_BASE_URL}/api/sentence`);
       const data = await response.json();
       setLoading(false);
       // Add empty message and apply typewriter effect
@@ -105,7 +105,7 @@ function App() {
 
     // backend call to the /check endpoint
     try {
-      const response = await fetch(`${API_BASE_URL}/check`, {
+      const response = await fetch(`${API_BASE_URL}/api/check`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ translation: userInput })
