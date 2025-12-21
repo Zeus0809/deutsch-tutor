@@ -16,7 +16,7 @@ function Dictionary() {
     setLoading(true);
     // TODO: API call to /dictionary endpoint will be implemented later
     try {
-      const response = await fetch(`${API_BASE_URL}/dictionary`, {
+      const response = await fetch(`${API_BASE_URL}/api/dictionary`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ expression: input })
