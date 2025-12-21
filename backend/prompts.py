@@ -28,14 +28,10 @@ Return the output as array of JSON objects. EXAMPLE:
 INPUT: house
 OUTPUT:
 [ 
-  { 'translation': 'das Haus', 'comments': 'a building where humans live' },
-  { 'translation': 'die Wohnung', 'comments': 'apartment or flat' },
-  { 'translation': 'das Gebäude', 'comments': 'building (in general)' },
-  { 'translation': 'das Heim', 'comments': 'home (more poetic)' }
+  { "translation": "das Haus", "comments": "a building where humans live" },
+  { "translation": "die Wohnung", "comments": "apartment or flat" },
+  { "translation": "das Gebäude", "comments": "building (in general)" },
+  { "translation": "das Heim", "comments": "home (more poetic)" }
 ]
 ENGLISH EXPRESSION:
 """
-
-
-
-
