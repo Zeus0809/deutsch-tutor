@@ -26,10 +26,14 @@ function Dictionary() {
       }
       const data = await response.json();
       setLoading(false);
-      // Populate mainResult
-      setMainResult(data.results[0].translation)
-      // Populate comments
-      setAllResults(data.results)
+      // Populate mainResult and all results only if results is a non-empty array
+      if (Array.isArray(data.results) && data.results.length > 0) {
+        setMainResult(data.results[0].translation);
+        setAllResults(data.results);
+      } else {
+        setMainResult('No results found');
+        setAllResults([]);
+      }
       // hide the list
       setIsExpanded(false)
     } catch (error) {
@@ -81,7 +85,7 @@ function Dictionary() {
               {mainResult}
             </div>
             <div className="plus-expander" onClick={toggleExpanded}>more</div>
-            {allResults && (
+            {allResults.length > 0 && (
               <div className={`translation-list ${!isExpanded ? 'collapsed' : ''}`}>
                 {allResults.map((item, index) => (
                   <div key={index} className="translation-item">
