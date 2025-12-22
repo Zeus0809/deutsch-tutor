@@ -1,0 +1,131 @@
+/* Conjugation container - matches Dictionary styling but auto-height */
+.conjugation-container {
+  width: 25vw;
+  background: #faf8f3;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid var(--color-black);
+  margin-top: 6.5rem;
+}
+
+/* Black header with white text */
+.conjugation-header {
+  background: var(--color-black);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+/* Content area with padding */
+.conjugation-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Input section - transparent input with send button */
+.conjugation-input-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.conjugation-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-black);
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  color: var(--color-black);
+  background: transparent;
+}
+
+.conjugation-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.conjugation-input:focus {
+  border-color: var(--color-red);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Send button - red circular button matching Dictionary style */
+.conjugation-send-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--color-red);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding: 0;
+  transition: background 0.3s;
+}
+
+.conjugation-send-btn:hover {
+  opacity: 0.8;
+}
+
+.conjugation-send-btn:active {
+  opacity: 0.6;
+}
+
+/* Spinner container - centered */
+.conjugation-spinner-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* Error message */
+.conjugation-error {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+  font-style: italic;
+}
+
+/* Results area - yellow background */
+.conjugation-results {
+  background-color: var(--color-yellow);
+  border-radius: 8px;
+  border: 2px solid var(--color-black);
+  padding: 0;
+}
+
+.conjugation-table {
+  display: flex;
+  padding: 0.5rem 0;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.conjugation-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.conjugation-column:first-child {
+  border-right: 1px solid var(--color-black);
+}
+
+.conjugation-cell {
+  text-align: center;
+  color: var(--color-black);
+  padding: 0.4rem;
+  font-size: 0.95rem;
+}

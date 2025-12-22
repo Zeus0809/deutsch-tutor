@@ -1,7 +1,7 @@
 /* Dictionary container - matches chat section height and styling */
 .dictionary-container {
   width: 25vw;
-  height: 90vh;
+  height: calc(100vh - 2rem);
   background: #faf8f3;
   border-radius: 8px;
   display: flex;
@@ -24,7 +24,7 @@
 /* Content area with padding */
 .dictionary-content {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -106,8 +106,8 @@
 
 .plus-expander {
   position: absolute;
-  top: 32%;
-  right: 3.2rem;
+  top: 31%;
+  right: 2.7rem;
   width: 50px;
   border-radius: 8px 0 0 0;
   border: solid var(--color-black);
