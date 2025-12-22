@@ -31,7 +31,7 @@ def check_translation(request: TranslationRequest):
 
 @app.post('/api/dictionary')
 def look_up(request: DictionaryRequest):
-    return {"results" : tutor.look_up(request.expression)} # returns List[Dict]
+    return {"results" : tutor.look_up(request.expression)} # returns List[Dict] or HTTPException
 
 @app.post('/api/conjugation')
 def conjugate(request: ConjugationRequest):

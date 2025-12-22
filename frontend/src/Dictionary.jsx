@@ -9,11 +9,17 @@ function Dictionary() {
   const [mainResult, setMainResult] = useState('')
   const [allResults, setAllResults] = useState([])
   const [isExpanded, setIsExpanded] = useState(false)
+  const [error, setError] = useState('')
 
   const handleLookup = async () => {
     if (!input.trim()) return;
 
     setLoading(true);
+    setError(false);
+    setMainResult(null);
+    setAllResults(null);
+    setIsExpanded(false);
+
     // API call to /dictionary endpoint
     try {
       const response = await fetch(`${API_BASE_URL}/api/dictionary`, {
@@ -21,26 +27,30 @@ function Dictionary() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ expression: input })
       });
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // handle API errors here
+        setLoading(false);
+        if (response.status === 400){
+            setError("Oops! There is no word/phrase like that.");
+        } else {
+            setError("Oops! Server error 0_0")
+        }
+        // exit the function
+        return;
       }
+      // process response if no errors
       const data = await response.json();
       setLoading(false);
-      // Populate mainResult and all results only if results is a non-empty array
-      if (Array.isArray(data.results) && data.results.length > 0) {
-        setMainResult(data.results[0].translation);
-        setAllResults(data.results);
-      } else {
-        setMainResult('No results found');
-        setAllResults([]);
-      }
+      setMainResult(data.results[0].translation);
+      setAllResults(data.results);
       // hide the list
       setIsExpanded(false)
-    } catch (error) {
-      console.error('Error: ', error);
+    } catch (err) {
+      console.error('Error: ', err);
       setLoading(false);
       // friendly user error
-      setMainResult('Oops! Networking error 0_0');
+      setError('Oops! Networking error 0_0');
     }
   }
 
@@ -77,6 +87,10 @@ function Dictionary() {
           <div className="dictionary-spinner-container">
             <div className="spinner"></div>
           </div>
+        )}
+
+        {error && !loading && (
+          <div className="dictionary-error">{error}</div>
         )}
 
         {mainResult && !loading && (

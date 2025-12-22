@@ -13,7 +13,7 @@ class Tutor:
         self._client = genai.Client(api_key=self._apikey)
         self.chat_model = 'gemini-2.5-flash-lite'
         self.dict_model = 'gemini-2.5-flash-lite'
-        self.verb_model = 'gemini-2.5-pro'
+        self.verb_model = 'gemini-2.5-flash-lite'
         self.system_prompt = prompts.SYSTEM
 
     def get_sample_sentence(self) -> str:
@@ -40,12 +40,18 @@ class Tutor:
             contents=prompt,
             config={ 'response_mime_type': 'application/json' }
         )
+
         try:
             output = json.loads(response.text)
         except json.JSONDecodeError as e:
-            raise ValueError("Failed to parse dictionary response from LLM as JSON.") from e
+            print(e)
+            raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
+        
+        if not output or len(output) == 0:
+            raise HTTPException(status_code=400, detail="Invalid expression provided by user")
+        
         return output
-    
+
     def conjugate(self, verb: str) -> Dict[str, str]:
         """Use Gemini to look up conjugation forms in the Present Tense for a given verb"""
         prompt = prompts.CONJUGATION + "\n" + verb
@@ -58,6 +64,7 @@ class Tutor:
         try:
             verb_forms = json.loads(response.text)
         except json.JSONDecodeError as e:
+            print(e)
             raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
         
         if not verb_forms or len(verb_forms) == 0:
