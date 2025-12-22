@@ -29,7 +29,7 @@ function Conjugation() {
         if (response.status === 400){
             setError("Oops! That's not a German verb.");
         } else {
-            setError("Oops! Server error 0_0")
+            setError("Oops! Server error 0_0");
         }
         // exit the function
         return;
