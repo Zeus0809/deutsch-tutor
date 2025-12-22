@@ -6,3 +6,5 @@ class TranslationRequest(BaseModel):
 class DictionaryRequest(BaseModel):
     expression: str
 
+class ConjugationRequest(BaseModel):
+    verb: str

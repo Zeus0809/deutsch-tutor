@@ -6,15 +6,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 function Conjugation() {
   const [verb, setVerb] = useState('')
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState({
-    ich: 'schlafe',
-    du: 'schläfst',
-    er_sie_es: 'schläft',
-    wir: 'schlafen',
-    ihr: 'schlaft',
-    sie_Sie: 'schlafen'
-  })
-  const [error, setError] = useState(false)
+  const [results, setResults] = useState({})
+  const [error, setError] = useState('')
 
   const handleLookup = async () => {
     if (!verb.trim()) return;
@@ -31,18 +24,25 @@ function Conjugation() {
       });
       
       if (!response.ok) {
-        setError(true);
+        // handle API errors here
         setLoading(false);
+        if (response.status === 400){
+            setError("Oops! That's not a German verb.");
+        } else {
+            setError("Oops! Server error 0_0")
+        }
+        // exit the function
         return;
       }
-      
+      // process response if no errors
       const data = await response.json();
       setLoading(false);
       setResults(data.conjugations);
     } catch (err) {
       console.error('Error: ', err);
       setLoading(false);
-      setError(true);
+      // friendly user error
+      setError('Oops! Networking error 0_0');
     }
   }
 
@@ -78,9 +78,7 @@ function Conjugation() {
         )}
 
         {error && !loading && (
-          <div className="conjugation-error">
-            Oops! That's not a German verb.
-          </div>
+          <div className="conjugation-error">{error}</div>
         )}
 
         {results && !loading && (

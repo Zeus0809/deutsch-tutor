@@ -106,8 +106,8 @@
 
 .plus-expander {
   position: absolute;
-  top: 31%;
-  right: 2.7rem;
+  top: 216px;
+  right: 2.2rem;
   width: 50px;
   border-radius: 8px 0 0 0;
   border: solid var(--color-black);

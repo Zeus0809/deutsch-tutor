@@ -14,7 +14,7 @@ function Dictionary() {
     if (!input.trim()) return;
 
     setLoading(true);
-    // TODO: API call to /dictionary endpoint will be implemented later
+    // API call to /dictionary endpoint
     try {
       const response = await fetch(`${API_BASE_URL}/api/dictionary`, {
         method: 'POST',
@@ -40,7 +40,7 @@ function Dictionary() {
       console.error('Error: ', error);
       setLoading(false);
       // friendly user error
-      setMainResult('Oops! Error 0_0');
+      setMainResult('Oops! Networking error 0_0');
     }
   }
 
