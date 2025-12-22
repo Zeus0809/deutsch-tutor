@@ -1,6 +1,7 @@
 from google import genai
 from dotenv import load_dotenv
-import os, prompts
+from typing import List, Dict
+import os, prompts, json
 
 class Tutor:
     """The German Tutor class encapsulating LLM conversation logic"""
@@ -9,14 +10,15 @@ class Tutor:
         load_dotenv()
         self._apikey = os.getenv('GEMINI_API_KEY')
         self._client = genai.Client(api_key=self._apikey)
-        self.model = 'gemini-2.5-flash-lite'
+        self.chat_model = 'gemini-2.5-flash-lite'
+        self.dict_model = 'gemini-2.5-flash-lite'
         self.system_prompt = prompts.SYSTEM
 
     def get_sample_sentence(self) -> str:
         """Use Gemini to generate a sample sentence in English"""
         prompt = self.system_prompt + "\n" + prompts.SAMPLE_SENTENCE
         response = self._client.models.generate_content(
-            model=self.model, contents=prompt
+            model=self.chat_model, contents=prompt
         )
         return response.text
     
@@ -24,10 +26,23 @@ class Tutor:
         """Use Gemini to assess user's translation of sample sentence"""
         prompt = self.system_prompt + "\n" + prompts.CHECK_SENTENCE + "\n" + translation
         response = self._client.models.generate_content(
-            model=self.model, contents=prompt
+            model=self.chat_model, contents=prompt
         )
         return response.text
 
+    def look_up(self, expression: str) -> List[Dict]:
+        """Use Gemini to look up a word/phrase in an English-German dictionary"""
+        prompt = prompts.DICTIONARY + "\n" + expression
+        response = self._client.models.generate_content(
+            model=self.dict_model,
+            contents=prompt,
+            config={ 'response_mime_type': 'application/json' }
+        )
+        try:
+            output = json.loads(response.text)
+        except json.JSONDecodeError as e:
+            raise ValueError("Failed to parse dictionary response from LLM as JSON.") from e
+        return output
 
 
 
