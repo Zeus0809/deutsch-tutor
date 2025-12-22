@@ -13,7 +13,7 @@ function Conjugation() {
     if (!verb.trim()) return;
 
     setLoading(true);
-    setError(false);
+    setError('');
     setResults(null);
 
     try {

@@ -15,7 +15,7 @@ function Dictionary() {
     if (!input.trim()) return;
 
     setLoading(true);
-    setError(false);
+    setError('');
     setMainResult(null);
     setAllResults(null);
     setIsExpanded(false);
