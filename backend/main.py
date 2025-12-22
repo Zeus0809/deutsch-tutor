@@ -31,7 +31,13 @@ def check_translation(request: TranslationRequest):
 
 @app.post('/api/dictionary')
 def look_up(request: DictionaryRequest):
-    return {"results" : tutor.look_up(request.expression)} # returns List[Dict]
+    return {"results" : tutor.look_up(request.expression)} # returns List[Dict] or HTTPException
+
+@app.post('/api/conjugation')
+def conjugate(request: ConjugationRequest):
+    return {"conjugations" : tutor.conjugate(request.verb)} # returns Dict[str, str] or HTTPException
+
+
 # Build the path: /app/main.py -> /app -> /app/static
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 

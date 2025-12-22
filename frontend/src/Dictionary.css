@@ -1,7 +1,7 @@
 /* Dictionary container - matches chat section height and styling */
 .dictionary-container {
   width: 25vw;
-  height: 90vh;
+  height: calc(100vh - 2rem);
   background: #faf8f3;
   border-radius: 8px;
   display: flex;
@@ -24,7 +24,7 @@
 /* Content area with padding */
 .dictionary-content {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -83,6 +83,16 @@
   padding: 1rem 0;
 }
 
+/* Error message */
+.dictionary-error {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+  font-style: italic;
+}
+
 /* Wrapper to combine yellow and white areas with no gaps */
 .result-wrapper {
   width: 100%;
@@ -106,8 +116,8 @@
 
 .plus-expander {
   position: absolute;
-  top: 32%;
-  right: 3.2rem;
+  top: 216px;
+  right: 2.2rem;
   width: 50px;
   border-radius: 8px 0 0 0;
   border: solid var(--color-black);
@@ -132,7 +142,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  max-height: 450px;
+  max-height: 500px;
   overflow-y: auto;
   transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, opacity 0.3s ease-in-out;
 }

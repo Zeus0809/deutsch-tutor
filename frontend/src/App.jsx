@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import './App.css'
 import logo from './assets/logo.png'
 import Dictionary from './Dictionary'
+import Conjugation from './Conjugation'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''; // leave empty if no env is set (production)
 
@@ -145,6 +146,7 @@ function App() {
         </div>
       ) : (
         <div className="main-content">
+          <Conjugation />
           <div className="chat-section">
             <div className="messages-area">
               {messages.map((msg, index) => (
