@@ -9,6 +9,16 @@ This is a tool that lets the user look up verb conjugation in the Present Tense.
 - A Send button styled like the one from main chat
 - A spinner appearing under the Send button, styled like the one in main chat
 - A yellow results area with two columns: Persons and Verb Form
+- The results area is seamlessly attached to the input area
+- Example: if user typed the verb 'schlafen' into input area:
+           Persons                  Form
+             ich                   schlafe
+             du                    schläfst
+          er/sie/es                schläft
+             wir                   schlafen
+             ihr                   schlaft
+           sie/Sie                 schlafen
+- Both columns are aligned 'center'.
 
 ### Backend:
 - A new FastAPI route '/conjugation' (main.py)
