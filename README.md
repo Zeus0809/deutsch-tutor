@@ -1,13 +1,13 @@
 # Deutsch Tutor 🇩🇪
 
-**Version 0.1.0** - Alpha Release
+**Version 0.1.2** - Alpha Release
 
 An interactive web application for learning German through translation practice. The app provides English sentences for users to translate into German, then uses AI to provide detailed feedback on their translations.
 
 ## Features
 
-- **AI-Powered Learning**: Uses Google's Gemini 2.0 Flash model to generate sentences and evaluate translations
-- **Interactive Chat Interface**: Clean, WhatsApp-style chat UI with typewriter effect for tutor responses
+- **AI-Powered Learning**: Uses Google's Gemini 2.5 Flash Lite model to generate sentences and evaluate translations
+- **Interactive Chat Interface**: Clean, messenger-style chat UI with typewriter effect for tutor responses
 - **Real-time Feedback**: Instant evaluation of translations with detailed explanations of mistakes
 - **German Flag Theme**: UI styled with Germany's national colors (black, red, yellow)
 - **Responsive Design**: Modern, centered layout with smooth transitions
@@ -17,10 +17,10 @@ An interactive web application for learning German through translation practice.
 ### Backend
 - **FastAPI**: Python web framework for REST API
 - **Google Gemini API**: LLM for sentence generation and translation evaluation
-- **Python 3.x**: Core backend language
+- **Python 3.11**: Core backend language
 
 ### Frontend
-- **React**: UI framework with hooks
+- **React 19**: UI framework with hooks
 - **Vite**: Fast build tool and dev server
 - **React Markdown**: For rendering formatted tutor responses
 - **CSS3**: Custom styling with CSS variables
@@ -28,7 +28,7 @@ An interactive web application for learning German through translation practice.
 ## Getting Started
 
 ### Prerequisites
-- Python 3.x
+- Python >=3.11
 - Node.js & npm
 - Google Gemini API key
 
@@ -44,8 +44,12 @@ An interactive web application for learning German through translation practice.
    ```bash
    pip install -r requirements.txt  # or use your package manager
    ```
+   Or with uv:
+   ```bash
+   uv sync
+   ```
 
-4. Install frontend dependencies:
+5. Install frontend dependencies:
    ```bash
    cd frontend
    npm install
@@ -56,7 +60,7 @@ An interactive web application for learning German through translation practice.
 1. Start the backend server:
    ```bash
    cd backend
-   python main.py
+   uvicorn main:app --reload
    ```
    Server runs on `http://localhost:8000`
 
@@ -93,15 +97,6 @@ deutsch-tutor/
 ├── .gitignore
 └── README.md
 ```
-
-## Future Enhancements
-
-- Difficulty levels (beginner, intermediate, advanced)
-- Progress tracking and statistics
-- Topic-specific sentence generation
-- Voice input/output for pronunciation practice
-- Spaced repetition system
-- User authentication and saved progress
 
 ## License
 

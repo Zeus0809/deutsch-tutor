@@ -2,8 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import './App.css'
 import logo from './assets/logo.png'
+import Dictionary from './Dictionary'
+import Conjugation from './Conjugation'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''; // leave empty if no env is set (production)
 
 function App() {
   const [started, setStarted] = useState(false)
@@ -74,7 +76,7 @@ function App() {
     setLoading(true);
     // backend call to generate first sentence
     try {
-      const response = await fetch(`${API_BASE_URL}/sentence`);
+      const response = await fetch(`${API_BASE_URL}/api/sentence`);
       const data = await response.json();
       setLoading(false);
       // Add empty message and apply typewriter effect
@@ -104,7 +106,7 @@ function App() {
 
     // backend call to the /check endpoint
     try {
-      const response = await fetch(`${API_BASE_URL}/check`, {
+      const response = await fetch(`${API_BASE_URL}/api/check`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ translation: userInput })
@@ -143,35 +145,40 @@ function App() {
           <button onClick={handleStart}>Start</button>
         </div>
       ) : (
-        <div className="chat-section">
-          <div className="messages-area">
-            {messages.map((msg, index) => (
-              <div key={index} className={`message ${msg.type}`}>
-                {msg.type === 'tutor' ? (
-                  <ReactMarkdown>{msg.text}</ReactMarkdown>
-                ) : (
-                  msg.text
-                )}
-              </div>
-            ))}
-            {loading && (
-              <div className="message tutor loading-message">
-                <div className="spinner"></div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
+        <div className="main-content">
+          <Conjugation />
+          <div className="chat-section">
+            <div className="messages-area">
+              {messages.map((msg, index) => (
+                <div key={index} className={`message ${msg.type}`}>
+                  {msg.type === 'tutor' ? (
+                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                  ) : (
+                    msg.text
+                  )}
+                </div>
+              ))}
+              {loading && (
+                <div className="message tutor loading-message">
+                  <div className="spinner"></div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+            
+            <div className="input-area">
+              <input 
+                type="text" 
+                placeholder="Type your message..."
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
+              <button className="send-btn" onClick={handleSend}>➤</button>
+            </div>
           </div>
           
-          <div className="input-area">
-            <input 
-              type="text" 
-              placeholder="Type your message..."
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-            <button className="send-btn" onClick={handleSend}>➤</button>
-          </div>
+          <Dictionary />
         </div>
       )}
     </div>

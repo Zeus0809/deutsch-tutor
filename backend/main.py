@@ -1,12 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from tutor import Tutor
 from rest_models import *
+import os
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -14,16 +17,41 @@ app.add_middleware(
 
 tutor = Tutor()
 
-@app.get('/')
+@app.get('/api')
 def home():
     return {"message" : "Welcome to Deutsch Tutor!"}
 
-@app.get('/sentence')
+@app.get('/api/sentence')
 def get_sentence():
-    return {"sentence" : tutor.get_sample_sentence()}
+    return {"sentence" : tutor.get_sample_sentence()} # returns str
 
-@app.post('/check')
+@app.post('/api/check')
 def check_translation(request: TranslationRequest):
-    return {"feedback" : tutor.check_translation(request.translation)}
+    return {"feedback" : tutor.check_translation(request.translation)} # returns str
 
+@app.post('/api/dictionary')
+def look_up(request: DictionaryRequest):
+    return {"results" : tutor.look_up(request.expression)} # returns List[Dict] or HTTPException
+
+@app.post('/api/conjugation')
+def conjugate(request: ConjugationRequest):
+    return {"conjugations" : tutor.conjugate(request.verb)} # returns Dict[str, str] or HTTPException
+
+
+# Build the path: /app/main.py -> /app -> /app/static
+static_dir = os.path.join(os.path.dirname(__file__), "static")
+
+# Only set up static file serving if the folder exists (a.k.a if we're in a Docker container, a.k.a in production)
+if os.path.exists(static_dir):
+    # Mount /assets to make FastAPI understand where to find frontend files
+    app.mount(path="/assets", app=StaticFiles(directory=os.path.join(static_dir, "assets")), name="assets")
+    # Catch-all route for any other routes: intended for static frontend files
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        file_path = os.path.join(static_dir, full_path)
+        # If a specific file exists, serve it
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        # Otherwise serve index.html
+        return FileResponse(os.path.join(static_dir, "index.html"))
 
