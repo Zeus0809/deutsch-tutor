@@ -27,7 +27,7 @@ function Conjugation() {
         // handle API errors here
         setLoading(false);
         if (response.status === 400){
-            setError("Oops! That's not a German verb.");
+            setError("Oops! That's not a valid verb.");
         } else {
             setError("Oops! Server error 0_0");
         }

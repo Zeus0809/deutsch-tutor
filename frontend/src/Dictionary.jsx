@@ -94,7 +94,7 @@ function Dictionary() {
         )}
 
         {mainResult && !loading && (
-          <div className="result-wrapper">
+          <div className="dictionary-result-wrapper">
             <div className="main-result">
               {mainResult}
             </div>

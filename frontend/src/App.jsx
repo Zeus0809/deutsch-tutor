@@ -4,6 +4,7 @@ import './App.css'
 import logo from './assets/logo.png'
 import Dictionary from './Dictionary'
 import Conjugation from './Conjugation'
+import Noun from './Noun'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''; // leave empty if no env is set (production)
 
@@ -138,15 +139,22 @@ function App() {
 
   return (
     <div className="App">
-      <img src={logo} alt="Deutsch Tutor" className={started ? 'logo logo-small' : 'logo'} />
-      
       {!started ? (
         <div className="start-section">
+          <img src={logo} alt="Deutsch Tutor" className='logo-big' />
           <button onClick={handleStart}>Start</button>
         </div>
       ) : (
         <div className="main-content">
-          <Conjugation />
+          <div className='utilities-left'>
+            <div className='logo-wrapper'>
+              <img src={logo} alt="Deutsch Tutor" className='logo-small' />
+              <div className='logo-text'>YOUR GERMAN TUTOR</div>
+            </div>
+            <Conjugation />
+            <Noun />
+          </div>
+
           <div className="chat-section">
             <div className="messages-area">
               {messages.map((msg, index) => (

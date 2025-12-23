@@ -94,7 +94,7 @@
 }
 
 /* Wrapper to combine yellow and white areas with no gaps */
-.result-wrapper {
+.dictionary-result-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;

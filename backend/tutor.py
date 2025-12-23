@@ -14,6 +14,7 @@ class Tutor:
         self.chat_model = 'gemini-2.5-flash-lite'
         self.dict_model = 'gemini-2.5-flash-lite'
         self.verb_model = 'gemini-2.5-flash-lite'
+        self.noun_model = 'gemini-2.5-flash-lite'
         self.system_prompt = prompts.SYSTEM
 
     def get_sample_sentence(self) -> str:
@@ -71,9 +72,25 @@ class Tutor:
             raise HTTPException(status_code=400, detail="Invalid verb provided by user")
         
         return verb_forms
-
     
+    def get_noun_details(self, noun: str) -> Dict[str, str]:
+        """Use Gemini to look up the gender and plural form of a given noun"""
+        prompt = prompts.NOUN + "\n" + noun
+        response = self._client.models.generate_content(
+            model = self.noun_model,
+            contents=prompt,
+            config={ 'response_mime_type': 'application/json' }
+        )
 
-
+        try:
+            noun_details = json.loads(response.text)
+        except json.JSONDecodeError as e:
+            print(e)
+            raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
+        
+        if not noun_details or len(noun_details) == 0:
+            raise HTTPException(status_code=400, detail="Invalid noun provided by user")
+        
+        return noun_details
 
 
