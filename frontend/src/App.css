@@ -1,6 +1,6 @@
 /* German flag color scheme */
 :root {
-  --color-yellow: #f0c63b;
+  --color-yellow: #ffe282;
   --color-black: #020202;
   --color-red: #CF2C2B;
 }
@@ -19,7 +19,7 @@
 }
 
 /* Large logo - centered on start screen */
-.logo {
+.logo-big {
   max-width: 200px;
   width: 100%;
   height: auto;
@@ -28,13 +28,23 @@
   transition: all 0.3s ease;
 }
 
-/* Small logo - fixed position after start */
-.logo.logo-small {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  max-width: 100px;
-  margin: 0;
+.logo-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* Small logo - after start on main content screen */
+.logo-small {
+  width: 49px;
+  height: 49px;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .main-content {
@@ -43,6 +53,12 @@
   align-items: flex-start;
   justify-content: center;
   width: 100%;
+}
+
+.utilities-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .chat-section {

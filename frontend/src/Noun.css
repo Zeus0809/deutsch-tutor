@@ -1,5 +1,5 @@
-/* Conjugation container - matches Dictionary styling but auto-height */
-.conjugation-container {
+/* Noun container - matches Dictionary styling */
+.noun-container {
   width: 25vw;
   background: #faf8f3;
   border-radius: 8px;
@@ -7,10 +7,11 @@
   flex-direction: column;
   overflow: hidden;
   border: 2px solid var(--color-black);
+  height: auto;
 }
 
 /* Black header with white text */
-.conjugation-header {
+.noun-header {
   background: var(--color-black);
   color: white;
   padding: 1rem;
@@ -21,7 +22,7 @@
 }
 
 /* Content area with padding */
-.conjugation-content {
+.noun-content {
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -29,13 +30,13 @@
 }
 
 /* Input section - transparent input with send button */
-.conjugation-input-section {
+.noun-input-section {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
-.conjugation-input {
+.noun-input {
   flex: 1;
   padding: 0.8rem 1rem;
   border: 1px solid var(--color-black);
@@ -46,17 +47,16 @@
   background: transparent;
 }
 
-.conjugation-input::placeholder {
+.noun-input::placeholder {
   color: rgba(0, 0, 0, 0.4);
 }
 
-.conjugation-input:focus {
+.noun-input:focus {
   border-color: var(--color-red);
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Send button - red circular button matching Dictionary style */
-.conjugation-send-btn {
+.noun-send-btn {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -72,23 +72,23 @@
   transition: background 0.3s;
 }
 
-.conjugation-send-btn:hover {
+.noun-send-btn:hover {
   opacity: 0.8;
 }
 
-.conjugation-send-btn:active {
+.noun-send-btn:active {
   opacity: 0.6;
 }
 
 /* Spinner container - centered */
-.conjugation-spinner-container {
+.noun-spinner-container {
   display: flex;
   justify-content: center;
   padding: 1rem 0;
 }
 
 /* Error message */
-.conjugation-error {
+.noun-error {
   background-color: var(--color-yellow);
   color: var(--color-black);
   text-align: center;
@@ -98,33 +98,35 @@
 }
 
 /* Results area - yellow background */
-.conjugation-results {
+.noun-result-wrapper {
   background-color: var(--color-yellow);
   border-radius: 8px;
   border: 2px solid var(--color-black);
   padding: 0;
 }
 
-.conjugation-table {
-  display: flex;
-  padding: 0.5rem 0;
-  font-weight: bold;
-  font-style: italic;
-}
-
-.conjugation-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.conjugation-column:first-child {
-  border-right: 1px solid var(--color-black);
-}
-
-.conjugation-cell {
-  text-align: center;
+.result-gender {
+  background: var(--color-yellow);
+  padding: 1rem;
+  border-radius: 8px 8px 0 0;
   color: var(--color-black);
-  padding: 0.4rem;
-  font-size: 0.95rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--color-black);
 }
+
+.result-plural {
+  background: var(--color-yellow);
+  padding: 1rem;
+  border-radius: 0 0 8px 8px;
+  color: var(--color-black);
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+

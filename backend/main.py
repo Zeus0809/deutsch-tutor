@@ -37,6 +37,9 @@ def look_up(request: DictionaryRequest):
 def conjugate(request: ConjugationRequest):
     return {"conjugations" : tutor.conjugate(request.verb)} # returns Dict[str, str] or HTTPException
 
+@app.post('/api/noun')
+def process_noun(request: NounRequest):
+    return {"noun_details" : tutor.get_noun_details(request.noun)} # returns Dict[str, str] or HTTPException
 
 # Build the path: /app/main.py -> /app -> /app/static
 static_dir = os.path.join(os.path.dirname(__file__), "static")

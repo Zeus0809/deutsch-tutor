@@ -8,3 +8,6 @@ class DictionaryRequest(BaseModel):
 
 class ConjugationRequest(BaseModel):
     verb: str
+
+class NounRequest(BaseModel):
+    noun: str
