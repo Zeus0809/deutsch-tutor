@@ -22,7 +22,7 @@ function Noun() {
       // API call to /noun
       const response = await fetch(`${API_BASE_URL}/api/noun`, {
         method: 'POST',
-        headers: { 'COntent-Type' : 'application/json' },
+        headers: { 'Content-Type' : 'application/json' },
         body: JSON.stringify({ noun : noun.trim() })
       });
 

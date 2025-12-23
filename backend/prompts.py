@@ -103,12 +103,26 @@ You are a precise German Linguistics API. Your sole task is to provide the Germa
   "gender": "string",
   "plural": "string"
 }
-### Example (Valid Noun):
+### Example (Valid Noun in German):
 User: Mann
 Assistant:
 {
   "gender": "der Mann",
   "plural": "die Männer"
 }
-Please translate and provide the plural for the following noun:
+### Example (Valid Noun in English):
+User: car
+Assistant:
+{
+  "gender": "das Auto",
+  "plural": "die Autos"
+}
+### Example (Valid Noun in Russian):
+User: кот
+Assistant:
+{
+  "gender": "die Katze",
+  "plural": "die Katzen"
+}
+Please provide the German gender article and plural for the following noun:
 """

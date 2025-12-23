@@ -4,7 +4,7 @@ This is a tool that lets the user look up the gender of a German noun, as well a
 
 ### Frontend / UI-UX:
 - The UI element has rounded corners
-- A black header with the white word 'NOUN GENDER' centered in it
+- A black header with the white word 'NOUN GENDER & PLURAL' centered in it
 - A transparent input area with 'Check Noun' placeholder text
 - A Send button styled like the one from main chat, placed to the right of input
 - A spinner appearing under the Send button, styled like the one in main chat
