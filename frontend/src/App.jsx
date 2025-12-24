@@ -13,6 +13,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState('')
   const [messages, setMessages] = useState([])
+  const [tutorError, setTutorError] = useState('')
   const messagesEndRef = useRef(null)
   const typewriterQueue = useRef([])
   const typewriterActive = useRef(false)
@@ -77,20 +78,21 @@ function App() {
     setLoading(true);
     // backend call to generate first sentence
     try {
-      const response = await fetch(`${API_BASE_URL}/api/sentence`);
+      const response = await fetch(`${API_BASE_URL}/api/tutor/start`);
       const data = await response.json();
       setLoading(false);
       // Add empty message and apply typewriter effect
       const messageIndex = 0;
       setMessages([{ type: 'tutor', text: '' }]);
-      typewriterEffect(messageIndex, `Translate the following sentence into German:\n ${data.sentence}`);
+      typewriterEffect(messageIndex, `Let's begin! Please translate this sentence into German: ${data.initial_message}`);
     } catch (error) {
       console.error('Error: ', error);
       setLoading(false);
       // friendly user error
+      setTutorError("❌ Oops! Networking error, please check your connection.")
       setMessages([{
         type: 'tutor',
-        text: '❌ Sorry, I couldn\'t process that. Please try again.',
+        text: tutorError,
       }]);
     }
   }
@@ -107,14 +109,28 @@ function App() {
 
     // backend call to the /check endpoint
     try {
-      const response = await fetch(`${API_BASE_URL}/api/check`, {
+      const response = await fetch(`${API_BASE_URL}/api/tutor/continue`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ translation: userInput })
+        body: JSON.stringify({ user_message: userInput })
       });
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // handle API errors here
+        setLoading(false);
+        if (response.status === 404) {
+            setTutorError("❌ Oops! I have no context of our conversation. Let's start again.")
+        } else {
+            setTutorError("❌ Oops! Server error 0_0");
+        }
+        // throw error as tutor's message and exit the function
+        setMessages(prev => [...prev, {
+          type: 'tutor',
+          text: tutorError,
+        }]);
+        return;
       }
+
       const data = await response.json();
       setLoading(false);
       // Add empty message and apply typewriter effect
@@ -124,9 +140,10 @@ function App() {
       console.error('Error: ', error);
       setLoading(false);
       // friendly user error
+      setTutorError("❌ Oops! Networking error, please check your connection.")
       setMessages(prev => [...prev, {
         type: 'tutor',
-        text: '❌ Sorry, I couldn\'t process that. Please try again.',
+        text: tutorError,
       }]);
     }
   }

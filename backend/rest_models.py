@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-class TranslationRequest(BaseModel):
-    translation: str
+class ChatMessageRequest(BaseModel):
+    user_message: str
 
 class DictionaryRequest(BaseModel):
     expression: str

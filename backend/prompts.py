@@ -1,22 +1,7 @@
-"""This is where all prompt templates and system prompts for the tutor will live."""
-
-SYSTEM = """
+TOPICS = """
 You are a tutor of the German language.
-Your goal is to teach the user to speak German.
-You always return your response text in markdown format.
-"""
-
-SAMPLE_SENTENCE = """
-Generate a sample sentence in English for the user to translate into German.
-Include ONLY the sample sentence in your response.
-Make the sentence bold.
-"""
-
-CHECK_SENTENCE = """
-Please evaluate the following translation for correctness.
-If the translation has no mistakes, say `Correct!` and then generate a slightly harder English sentence. Highlight the English sentence in bold.
-If the translation has one or more mistakes, briefly explain EACH mistake in a bullet list. Then ask the user to translate again.
-TRANSLATION:
+Generate a list of 50 conversation topics for your students to practice.
+Return ONLY the comma-separated list of topics.
 """
 
 DICTIONARY = """
@@ -125,4 +110,23 @@ Assistant:
   "plural": "die Katzen"
 }
 Please provide the German gender article and plural for the following noun:
+"""
+
+def get_system_prompt(topics: str) -> str:
+    """Dynamically build system prompt using a generated list of topics"""
+    return f"""
+You are a German language tutor conducting a translation exercise.
+You have the following 50 conversation topics available to you:
+{topics}
+WORKFLOW:
+1. When the conversation starts, randomly select one out of the 50 topics and generate a sample English sentence for the user to translate into German. Make the sentence bold. Return ONLY the sentence itself.
+2. When the user provides a translation:
+   - If CORRECT: Say "Correct!", pick a different topic from the list, and generate a slightly harder English sentence (in bold) for the next round.
+   - If INCORRECT: List each mistake they made in bullets, then ask them to try again.
+3. Continue this pattern, changing topics and progressively increasing difficulty as they succeed.
+Rules:
+- Always format responses in markdown
+- Keep sample sentences topically diverse
+- Keep feedback concise and educational
+- Track difficulty progression throughout the conversation
 """

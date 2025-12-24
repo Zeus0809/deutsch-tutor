@@ -21,13 +21,13 @@ tutor = Tutor()
 def home():
     return {"message" : "Welcome to Deutsch Tutor!"}
 
-@app.get('/api/sentence')
-def get_sentence():
-    return {"sentence" : tutor.get_sample_sentence()} # returns str
+@app.get('/api/tutor/start')
+def start_conversation():
+    return {"initial_message" : tutor.start_conversation()} # returns str
 
-@app.post('/api/check')
-def check_translation(request: TranslationRequest):
-    return {"feedback" : tutor.check_translation(request.translation)} # returns str
+@app.post('/api/tutor/continue')
+def send_user_message(request: ChatMessageRequest):
+    return {"feedback" : tutor.send_user_message(request.user_message)} # returns str
 
 @app.post('/api/dictionary')
 def look_up(request: DictionaryRequest):
