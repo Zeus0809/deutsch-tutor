@@ -29,7 +29,6 @@ class Tutor:
     def start_conversation(self) -> str:
         """Use Gemini to create a Chat instance and return the first sample sentence"""
         topics = self._get_topics()
-        print(f"\n{topics}\n")
         # create a chat object to maintain conversation context
         self.conversation = self._client.chats.create(
             model = self.chat_model,
