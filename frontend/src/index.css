@@ -99,5 +99,5 @@ button:focus-visible {
 }
 
 .sound-btn--small {
-  size: 70%;
+  font-size: 70%;
 }
