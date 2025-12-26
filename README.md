@@ -1,6 +1,6 @@
 # Deutsch Tutor 🇩🇪
 
-**Version 0.2.0** - Alpha Release
+**Version 0.3.0** - Alpha Release
 
 An interactive web application for learning German through translation practice. The app provides English sentences for users to translate into German, then uses AI to provide detailed feedback on your translations. Additionally, integrated language utilities help you look up words, conjugate verbs, and check noun genders while you learn.
 
@@ -22,6 +22,7 @@ An interactive web application for learning German through translation practice.
 - **Responsive Design**: Modern, centered layout with smooth transitions and auto-scrolling chat
 - **Loading Indicators**: Visual feedback during API calls
 - **Error Handling**: User-friendly error messages for network and validation errors
+- **Pronunciation Feature**: User can listen to Gemini-generated audio clips of German vocabulary that they look up in the utilities.
 
 ### Deployment
 - **Docker Support**: Multi-stage Dockerfile for production deployment
