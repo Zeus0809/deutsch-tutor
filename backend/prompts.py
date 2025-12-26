@@ -1,3 +1,7 @@
+PRONUNCIATION = """
+Using proper German pronunciation, please read the following text aloud:
+"""
+
 TOPICS = """
 You are a tutor of the German language.
 Generate a list of 50 conversation topics for your students to practice.

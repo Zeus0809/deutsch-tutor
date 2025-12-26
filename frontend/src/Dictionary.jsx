@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Dictionary.css'
+import { HiSpeakerWave } from "react-icons/hi2";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -96,7 +97,8 @@ function Dictionary() {
         {mainResult && !loading && (
           <div className="dictionary-result-wrapper">
             <div className="main-result">
-              {mainResult}
+              <span className="main-result-text">{mainResult}</span>
+              <div className="sound-btn"><HiSpeakerWave /></div>
             </div>
             <div className="plus-expander" onClick={toggleExpanded}>more</div>
             {allResults.length > 0 && (

@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from typing import List, Dict
 import os, prompts, json
 from fastapi import HTTPException
+from utils import convert_audio_to_wav
 
 class Tutor:
     """The German Tutor class encapsulating LLM conversation logic"""
@@ -15,6 +16,7 @@ class Tutor:
         self.dict_model = 'gemini-2.5-flash-lite'
         self.verb_model = 'gemini-2.5-flash-lite'
         self.noun_model = 'gemini-2.5-flash-lite'
+        self.tts_model = 'gemini-2.5-flash-preview-tts'
         self.conversation = None # Gemini chat context
 
     def _get_topics(self) -> str:
@@ -68,7 +70,7 @@ class Tutor:
             raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
         
         if not output or len(output) == 0:
-            raise HTTPException(status_code=400, detail="Invalid expression provided by user")
+            raise HTTPException(status_code=401, detail="Invalid expression provided by user")
         
         return output
 
@@ -88,7 +90,7 @@ class Tutor:
             raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
         
         if not verb_forms or len(verb_forms) == 0:
-            raise HTTPException(status_code=400, detail="Invalid verb provided by user")
+            raise HTTPException(status_code=402, detail="Invalid verb provided by user")
         
         return verb_forms
     
@@ -108,8 +110,27 @@ class Tutor:
             raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
         
         if not noun_details or len(noun_details) == 0:
-            raise HTTPException(status_code=400, detail="Invalid noun provided by user")
+            raise HTTPException(status_code=403, detail="Invalid noun provided by user")
         
         return noun_details
 
+    def pronounce(self, text: str) -> bytes:
+        """Use Gemini TTS to get an audio blob of given text"""
+        prompt = prompts.PRONUNCIATION + "\n" + text
+        response = self._client.models.generate_content(
+            model=self.tts_model,
+            contents=prompt,
+            config={ 'response_modalities': ["AUDIO"] }
+        )
 
+        try:
+            pcm_blob = response.candidates[0].content.parts[0].inline_data.data
+        except (IndexError, AttributeError) as e:
+            print(e)
+            raise HTTPException(status_code=501, detail="Failed to extract audio from TTS response.")
+        
+        if not isinstance(pcm_blob, bytes):
+            raise HTTPException(status_code=405, detail=f'Invalid audio data type returned by TTS: {type(pcm_blob)}')
+
+        wav_blob = convert_audio_to_wav(pcm_blob)
+        return wav_blob
