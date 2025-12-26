@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './Dictionary.css'
 import { HiSpeakerWave } from "react-icons/hi2";
+import { showToast, playPronunciation } from './utils.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -11,6 +12,7 @@ function Dictionary() {
   const [allResults, setAllResults] = useState([])
   const [isExpanded, setIsExpanded] = useState(false)
   const [error, setError] = useState('')
+
 
   const handleLookup = async () => {
     if (!input.trim()) return;
@@ -98,7 +100,9 @@ function Dictionary() {
           <div className="dictionary-result-wrapper">
             <div className="main-result">
               <span className="main-result-text">{mainResult}</span>
-              <div className="sound-btn"><HiSpeakerWave /></div>
+              <div className="sound-btn" onClick={() => playPronunciation(mainResult, () => showToast("Oops! Error playing the audio."))}>
+                <HiSpeakerWave />
+              </div>
             </div>
             <div className="plus-expander" onClick={toggleExpanded}>more</div>
             {allResults.length > 0 && (
