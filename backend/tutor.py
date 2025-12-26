@@ -70,7 +70,7 @@ class Tutor:
             raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
         
         if not output or len(output) == 0:
-            raise HTTPException(status_code=401, detail="Invalid expression provided by user")
+            raise HTTPException(status_code=400, detail="Invalid expression provided by user")
         
         return output
 

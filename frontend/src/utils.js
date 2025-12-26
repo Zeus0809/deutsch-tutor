@@ -2,7 +2,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 // a map to store cached audio blobs
 const audioCache = new Map();
-a
+
 export const playPronunciation = async (textToRead, onError) => {
     // first check cache, play audio if already cached
     if (audioCache.has(textToRead)) {
