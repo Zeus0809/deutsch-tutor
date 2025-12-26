@@ -128,3 +128,10 @@
   padding: 0.4rem;
   font-size: 0.95rem;
 }
+
+.conjugation-cell--verb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

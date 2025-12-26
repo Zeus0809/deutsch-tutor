@@ -123,16 +123,6 @@
   overflow-wrap: break-word;
 }
 
-.sound-btn {
-  display: flex;
-  justify-content: center;
-}
-
-.sound-btn:hover {
-  opacity: 0.5;
-  cursor: pointer;
-}
-
 .plus-expander {
   position: absolute;
   top: 216px;
@@ -178,6 +168,12 @@
 .translation-item {
   padding: 0.5rem;
   background: #f5f5f5;
+}
+
+.translation-text-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .translation-text {

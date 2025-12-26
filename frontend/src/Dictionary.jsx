@@ -109,7 +109,12 @@ function Dictionary() {
               <div className={`translation-list ${!isExpanded ? 'collapsed' : ''}`}>
                 {allResults.map((item, index) => (
                   <div key={index} className="translation-item">
-                    <div className="translation-text">{item.translation}</div>
+                    <div className="translation-text-wrapper">
+                      <div className="translation-text">{item.translation}</div>
+                      <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(item.translation, () => showToast("Oops! Error playing the audio."))}>
+                        <HiSpeakerWave />
+                      </div>
+                    </div>
                     <div className="translation-comments">{item.comments}</div>
                   </div>
                 ))}

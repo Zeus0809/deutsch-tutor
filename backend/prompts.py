@@ -1,5 +1,5 @@
 PRONUNCIATION = """
-Using proper German pronunciation, please read the following text aloud:
+Using a proper German accent, please say the following text out loud:
 """
 
 TOPICS = """

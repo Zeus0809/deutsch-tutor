@@ -87,3 +87,17 @@ button:focus-visible {
     opacity: 1;
   }
 }
+
+.sound-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.sound-btn:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.sound-btn--small {
+  size: 70%;
+}

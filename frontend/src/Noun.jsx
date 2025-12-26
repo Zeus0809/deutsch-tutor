@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './Noun.css'
+import { HiSpeakerWave } from "react-icons/hi2";
+import { showToast, playPronunciation } from './utils.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -89,10 +91,16 @@ function Noun() {
         {gender && plural && !loading && (
           <div className="noun-result-wrapper">
             <div className="result-gender">
-              {gender}
+              <span className="result-gender-text">{gender}</span>
+              <div className="sound-btn" onClick={() => playPronunciation(gender, () => showToast("Oops! Error playing the audio."))}>
+                <HiSpeakerWave />
+              </div>
             </div>
             <div className="result-plural">
-              {plural}
+              <span className="result-plural-text">{plural}</span>
+              <div className="sound-btn" onClick={() => playPronunciation(plural, () => showToast("Oops! Error playing the audio."))}>
+                <HiSpeakerWave />
+              </div>
             </div>
           </div>
         )}
