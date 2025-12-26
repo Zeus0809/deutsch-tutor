@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './Dictionary.css'
+import { HiSpeakerWave } from "react-icons/hi2";
+import { showToast, playPronunciation } from './utils.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
@@ -10,6 +12,7 @@ function Dictionary() {
   const [allResults, setAllResults] = useState([])
   const [isExpanded, setIsExpanded] = useState(false)
   const [error, setError] = useState('')
+
 
   const handleLookup = async () => {
     if (!input.trim()) return;
@@ -96,14 +99,22 @@ function Dictionary() {
         {mainResult && !loading && (
           <div className="dictionary-result-wrapper">
             <div className="main-result">
-              {mainResult}
+              <span className="main-result-text">{mainResult}</span>
+              <div className="sound-btn" onClick={() => playPronunciation(mainResult, () => showToast("Oops! Error playing the audio."))}>
+                <HiSpeakerWave />
+              </div>
             </div>
             <div className="plus-expander" onClick={toggleExpanded}>more</div>
             {allResults.length > 0 && (
               <div className={`translation-list ${!isExpanded ? 'collapsed' : ''}`}>
                 {allResults.map((item, index) => (
                   <div key={index} className="translation-item">
-                    <div className="translation-text">{item.translation}</div>
+                    <div className="translation-text-wrapper">
+                      <div className="translation-text">{item.translation}</div>
+                      <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(item.translation, () => showToast("Oops! Error playing the audio."))}>
+                        <HiSpeakerWave />
+                      </div>
+                    </div>
                     <div className="translation-comments">{item.comments}</div>
                   </div>
                 ))}

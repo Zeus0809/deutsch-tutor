@@ -11,3 +11,7 @@ class ConjugationRequest(BaseModel):
 
 class NounRequest(BaseModel):
     noun: str
+
+class PronunciationRequest(BaseModel):
+    text: str
+

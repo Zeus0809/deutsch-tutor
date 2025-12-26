@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from typing import List, Dict
 import os, prompts, json
 from fastapi import HTTPException
+from utils import convert_audio_to_wav
 
 class Tutor:
     """The German Tutor class encapsulating LLM conversation logic"""
@@ -15,6 +16,7 @@ class Tutor:
         self.dict_model = 'gemini-2.5-flash-lite'
         self.verb_model = 'gemini-2.5-flash-lite'
         self.noun_model = 'gemini-2.5-flash-lite'
+        self.tts_model = 'gemini-2.5-flash-preview-tts'
         self.conversation = None # Gemini chat context
 
     def _get_topics(self) -> str:
@@ -29,7 +31,6 @@ class Tutor:
     def start_conversation(self) -> str:
         """Use Gemini to create a Chat instance and return the first sample sentence"""
         topics = self._get_topics()
-        print(f"\n{topics}\n")
         # create a chat object to maintain conversation context
         self.conversation = self._client.chats.create(
             model = self.chat_model,
@@ -113,4 +114,23 @@ class Tutor:
         
         return noun_details
 
+    def pronounce(self, text: str) -> bytes:
+        """Use Gemini TTS to get an audio blob of given text"""
+        prompt = prompts.PRONUNCIATION + "\n" + text
+        response = self._client.models.generate_content(
+            model=self.tts_model,
+            contents=prompt,
+            config={ 'response_modalities': ["AUDIO"] }
+        )
 
+        try:
+            pcm_blob = response.candidates[0].content.parts[0].inline_data.data
+        except (IndexError, AttributeError) as e:
+            print(e)
+            raise HTTPException(status_code=500, detail="Failed to extract audio from TTS response.")
+        
+        if not isinstance(pcm_blob, bytes):
+            raise HTTPException(status_code=500, detail=f'Invalid audio data type returned by TTS: {type(pcm_blob)}')
+
+        wav_blob = convert_audio_to_wav(pcm_blob)
+        return wav_blob

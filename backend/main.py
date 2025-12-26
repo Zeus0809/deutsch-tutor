@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from tutor import Tutor
 from rest_models import *
 import os
@@ -40,6 +40,13 @@ def conjugate(request: ConjugationRequest):
 @app.post('/api/noun')
 def process_noun(request: NounRequest):
     return {"noun_details" : tutor.get_noun_details(request.noun)} # returns Dict[str, str] or HTTPException
+
+@app.post('/api/pronounce')
+def pronounce(request: PronunciationRequest): # returns the blob in WAV format, or HTTPException
+    return Response(
+        content=tutor.pronounce(request.text),
+        media_type='audio/wav'
+    )
 
 # Build the path: /app/main.py -> /app -> /app/static
 static_dir = os.path.join(os.path.dirname(__file__), "static")

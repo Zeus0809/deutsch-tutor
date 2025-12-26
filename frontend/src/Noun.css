@@ -105,6 +105,12 @@
   padding: 0;
 }
 
+.result-gender-text,
+.result-plural-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 .result-gender {
   background: var(--color-yellow);
   padding: 1rem;
@@ -116,6 +122,10 @@
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .result-plural {
@@ -128,5 +138,9 @@
   text-align: center;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 

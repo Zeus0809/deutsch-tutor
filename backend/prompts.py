@@ -1,3 +1,7 @@
+PRONUNCIATION = """
+Using a proper German accent, please say the following text out loud:
+"""
+
 TOPICS = """
 You are a tutor of the German language.
 Generate a list of 50 conversation topics for your students to practice.
@@ -10,7 +14,7 @@ You are a high-precision German Lexicography API. Your task is to provide accura
 1. Output MUST be a valid JSON array of objects.
 2. No introductory text, markdown code blocks (unless specified), or conversational filler.
 3. Ranking: Start with the most common translation and descend to the least common.
-4. Comments Field: Each "comments" value must include a brief definition AND one example sentence in German.
+4. Comments Field: Each "comments" value must include a brief definition in English AND one example sentence in German.
 5. Error Handling: If the input is gibberish, misspelled beyond recognition, or not a real expression, return an empty array: [].
 ### Data Schema:
 [
