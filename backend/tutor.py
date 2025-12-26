@@ -127,7 +127,7 @@ class Tutor:
             pcm_blob = response.candidates[0].content.parts[0].inline_data.data
         except (IndexError, AttributeError) as e:
             print(e)
-            raise HTTPException(status_code=501, detail="Failed to extract audio from TTS response.")
+            raise HTTPException(status_code=500, detail="Failed to extract audio from TTS response.")
         
         if not isinstance(pcm_blob, bytes):
             raise HTTPException(status_code=405, detail=f'Invalid audio data type returned by TTS: {type(pcm_blob)}')
