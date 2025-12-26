@@ -110,7 +110,7 @@ class Tutor:
             raise HTTPException(status_code=500, detail="Failed to parse LLM's response into JSON")
         
         if not noun_details or len(noun_details) == 0:
-            raise HTTPException(status_code=403, detail="Invalid noun provided by user")
+            raise HTTPException(status_code=400, detail="Invalid noun provided by user")
         
         return noun_details
 
