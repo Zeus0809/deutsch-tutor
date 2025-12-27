@@ -97,39 +97,51 @@ function Conjugation() {
               <div className="conjugation-column">
                 <div className="conjugation-cell conjugation-cell--verb">
                   <span className="conjugation-cell-text">{results.ich}</span>
-                  <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Ich ${results.ich}`, () => showToast("Oops! Error playing the audio."))}>
-                    <HiSpeakerWave />
-                  </div>
+                  {results.ich && (
+                    <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Ich ${results.ich}`, () => showToast("Oops! Error playing the audio."))}>
+                      <HiSpeakerWave />
+                    </div>
+                  )}
                 </div>
                 <div className="conjugation-cell conjugation-cell--verb">
                   <span className="conjugation-cell-text">{results.du}</span>
-                  <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Du ${results.du}`, () => showToast("Oops! Error playing the audio."))}>
-                    <HiSpeakerWave />
-                  </div>
+                  {results.du && (
+                    <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Du ${results.du}`, () => showToast("Oops! Error playing the audio."))}>
+                      <HiSpeakerWave />
+                    </div>
+                  )}
                 </div>
                 <div className="conjugation-cell conjugation-cell--verb">
                   <span className="conjugation-cell-text">{results.er_sie_es}</span>
-                  <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Er ${results.er_sie_es}, Sie ${results.er_sie_es}, Es ${results.er_sie_es}`, () => showToast("Oops! Error playing the audio."))}>
-                    <HiSpeakerWave />
-                  </div>
+                  {results.er_sie_es && (
+                    <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Er ${results.er_sie_es}, Sie ${results.er_sie_es}, Es ${results.er_sie_es}`, () => showToast("Oops! Error playing the audio."))}>
+                      <HiSpeakerWave />
+                    </div>
+                  )}
                 </div>
                 <div className="conjugation-cell conjugation-cell--verb">
                   <span className="conjugation-cell-text">{results.wir}</span>
-                  <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Wir ${results.wir}`, () => showToast("Oops! Error playing the audio."))}>
-                    <HiSpeakerWave />
-                  </div>
+                  {results.wir && (
+                    <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Wir ${results.wir}`, () => showToast("Oops! Error playing the audio."))}>
+                      <HiSpeakerWave />
+                    </div>
+                  )}
                 </div>
                 <div className="conjugation-cell conjugation-cell--verb">
                   <span className="conjugation-cell-text">{results.ihr}</span>
-                  <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Ihr ${results.ihr}`, () => showToast("Oops! Error playing the audio."))}>
-                    <HiSpeakerWave />
-                  </div>
+                  {results.ihr && (
+                    <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Ihr ${results.ihr}`, () => showToast("Oops! Error playing the audio."))}>
+                      <HiSpeakerWave />
+                    </div>
+                  )}
                 </div>
                 <div className="conjugation-cell conjugation-cell--verb">
                   <span className="conjugation-cell-text">{results.sie_Sie}</span>
-                  <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Sie ${results.sie_Sie}`, () => showToast("Oops! Error playing the audio."))}>
-                    <HiSpeakerWave />
-                  </div>
+                  {results.sie_Sie && (
+                    <div className="sound-btn sound-btn--small" onClick={() => playPronunciation(`Sie ${results.sie_Sie}`, () => showToast("Oops! Error playing the audio."))}>
+                      <HiSpeakerWave />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
