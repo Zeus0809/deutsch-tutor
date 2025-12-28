@@ -1,6 +1,6 @@
 # Deutsch Tutor 🇩🇪
 
-**Version 0.3.0** - Alpha Release
+**Version 0.3.3** - Alpha Release
 
 An interactive web application for learning German through translation practice. The app provides English sentences for users to translate into German, then uses AI to provide detailed feedback on your translations. Additionally, integrated language utilities help you look up words, conjugate verbs, and check noun genders while you learn.
 

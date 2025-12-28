@@ -71,7 +71,7 @@ class Tutor:
         
         if not output or len(output) == 0:
             raise HTTPException(status_code=400, detail="Invalid expression provided by user")
-        
+        print("Total tokens used: ", response.usage_metadata.total_token_count)
         return output
 
     def conjugate(self, verb: str) -> Dict[str, str]:
