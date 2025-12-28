@@ -74,6 +74,7 @@ function Noun() {
             onChange={(e) => setNoun(e.target.value)}
             onKeyDown={handleKeyPress}
             className="noun-input"
+            maxLength={25}
           />
           <button className="noun-send-btn" onClick={handleLookup}>➤</button>
         </div>

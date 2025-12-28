@@ -69,6 +69,7 @@ function Conjugation() {
             onChange={(e) => setVerb(e.target.value)}
             onKeyDown={handleKeyPress}
             className="conjugation-input"
+            maxLength={20}
           />
           <button className="conjugation-send-btn" onClick={handleLookup}>➤</button>
         </div>

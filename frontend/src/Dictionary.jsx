@@ -82,6 +82,7 @@ function Dictionary() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyPress}
             className="dictionary-input"
+            maxLength={25}
           />
           <button className="dictionary-send-btn" onClick={handleLookup}>➤</button>
         </div>
