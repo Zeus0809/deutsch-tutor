@@ -39,7 +39,7 @@ class Tutor:
                 model_log["requests_made"] += 1
                 break
         # send updated stats to GCP Logs
-        print(f"CUSTOM_TEST: {json.dumps(self._usage_stats)}")
+        print(f"TUTOR: {json.dumps(self._usage_stats)}")
 
     def _get_topics(self) -> str:
         """Use Gemini to generate a list of 50 topics for sentences."""
