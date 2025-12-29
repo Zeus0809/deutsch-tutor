@@ -161,5 +161,5 @@ class Tutor:
         if not isinstance(pcm_blob, bytes):
             raise HTTPException(status_code=500, detail=f'Invalid audio data type returned by TTS: {type(pcm_blob)}')
 
-        wav_blob = convert_audio_to_wav(pcm_blob)
+        wav_blob = utils.convert_audio_to_wav(pcm_blob)
         return wav_blob
