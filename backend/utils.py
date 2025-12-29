@@ -31,12 +31,11 @@ def read_gemini_logs() -> List[Dict]:
     latest_entry = ''
     for entry in entries:
         latest_entry = entry.payload
+        print("latest_entry after reading entry.payload: ", latest_entry)
         break
     if not latest_entry: # if no logs exist yet
          latest_log = []
     else:
-        print("latest_entry: ", latest_entry)
-        print("latest_entry without prefix: ", latest_entry.replace('CUSTOM_TEST: ', ''))
         try: # deserialize
             latest_log = json.loads(latest_entry.replace('CUSTOM_TEST: ', ''))
         except json.JSONDecodeError as e:
