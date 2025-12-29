@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "dotenv>=0.9.9",
     "fastapi>=0.124.2",
+    "google-cloud-logging>=3.13.0",
     "google-genai>=1.55.0",
     "huggingface-hub>=0.36.0",
     "uvicorn>=0.38.0",
