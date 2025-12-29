@@ -32,9 +32,12 @@ def read_gemini_logs() -> List[Dict]:
     for entry in entries:
         latest_entry = entry.payload
         break
-    try: # deserialize
-        latest_log = json.loads(latest_entry.replace('GEMINI: ', ''))
-    except json.JSONDecodeError as e:
-        print(e)
-        raise HTTPException(status_code=500, detail="Failed to parse Gemini API logs from GCP")
+    if not latest_entry: # if no logs exist yet
+         latest_log = []
+    else:
+        try: # deserialize
+            latest_log = json.loads(latest_entry.replace('GEMINI: ', ''))
+        except json.JSONDecodeError as e:
+            print(e)
+            raise HTTPException(status_code=500, detail="Failed to parse Gemini API logs from GCP")
     return latest_log
