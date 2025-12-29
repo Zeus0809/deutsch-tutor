@@ -22,7 +22,7 @@ def read_gemini_logs() -> List[Dict]:
     """
     load_dotenv()
     client = logging_v2.Client(project=os.getenv('GCP_PROJECT_ID')) # init the logging client
-    filter_str = 'textPayload:"CUSTOM_TEST"'
+    filter_str = 'textPayload:"CUSTOM_TEST" AND textPayload:"model_name" AND textPayload:"tokens_generated"'
     entries = client.list_entries( # this returns a generator
          filter_=filter_str,
          order_by=DESCENDING
@@ -36,6 +36,7 @@ def read_gemini_logs() -> List[Dict]:
     if not latest_entry: # if no logs exist yet
          latest_log = []
     else:
+        print("latest_entry without the PREFIX that goes into json.loads(): ", latest_entry.replace('CUSTOM_TEST: ', ''))
         try: # deserialize
             latest_log = json.loads(latest_entry.replace('CUSTOM_TEST: ', ''))
         except json.JSONDecodeError as e:
