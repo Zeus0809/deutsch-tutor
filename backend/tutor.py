@@ -21,6 +21,9 @@ class Tutor:
         self.tts_model = 'gemini-2.5-flash-preview-tts'
         self.conversation = None # Gemini chat context
 
+    def get_usage_stats(self) -> List[Dict]:
+        return self._usage_stats
+
     def _log_gemini_usage(self, model: str, token_count: int):
         """
         Call this method per Gemini request to log token usage per model.
@@ -39,7 +42,7 @@ class Tutor:
                 model_log["requests_made"] += 1
                 break
         # send updated stats to GCP Logs
-        print(f"GEMINI_API: {json.dumps(self._usage_stats)}")
+        print(f"GEMINI_STATS: {json.dumps(self._usage_stats)}")
 
     def _get_topics(self) -> str:
         """Use Gemini to generate a list of 50 topics for sentences."""

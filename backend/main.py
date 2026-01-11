@@ -48,6 +48,10 @@ def pronounce(request: PronunciationRequest): # returns the blob in WAV format, 
         media_type='audio/wav'
     )
 
+@app.get('/api/dev/gemini_stats')
+def get_current_stats():
+    return {"stats" : tutor.get_usage_stats()}
+
 # Build the path: /app/main.py -> /app -> /app/static
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 

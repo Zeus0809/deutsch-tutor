@@ -30,7 +30,7 @@ def get_current_gemini_usage() -> List[Dict]:
         'resource.labels.service_name="deutsch-tutor" AND '
         'resource.labels.location="europe-west1" AND '
         f'timestamp>="{cutoff_timestamp}" AND '
-        'textPayload:"GEMINI_API:" AND '
+        'textPayload:"GEMINI_STATS:" AND '
         'textPayload:"model_name" AND '
         'textPayload:"tokens_generated"'
     )
@@ -40,12 +40,13 @@ def get_current_gemini_usage() -> List[Dict]:
          max_results=1 # we only need the last entry
     )
     # retrieve the log entry from generator
-    latest_entry = next(generator, None).payload
+    latest_entry = next(generator, None)
     if not latest_entry: # if no logs exist yet
          latest_log = []
     else:
+        latest_entry = latest_entry.payload
         try: # deserialize
-            latest_log = json.loads(latest_entry.replace('GEMINI_API: ', ''))
+            latest_log = json.loads(latest_entry.replace('GEMINI_STATS: ', ''))
         except json.JSONDecodeError as e:
             print(e)
             raise HTTPException(status_code=500, detail="Failed to parse Gemini API logs from GCP")
