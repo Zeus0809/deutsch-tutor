@@ -13,7 +13,7 @@ class Tutor:
         self._apikey = os.getenv('GEMINI_API_KEY')
         self._client = genai.Client(api_key=self._apikey)
         # Gemini API usage stats: [ { "model_name" : str, "tokens_generated" : int, "requests_made" : int }, {}... ]
-        self._usage_stats = utils.read_gemini_logs()
+        self._usage_stats = utils.get_current_gemini_usage()
         self.chat_model = 'gemini-2.5-flash-lite'
         self.dict_model = 'gemini-2.5-flash-lite'
         self.verb_model = 'gemini-2.5-flash-lite'

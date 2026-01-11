@@ -2,8 +2,10 @@ import io, wave, os, json
 from dotenv import load_dotenv
 from typing import List, Dict
 from google.cloud import logging_v2
-from google.cloud.logging_v2 import DESCENDING
 from fastapi import HTTPException
+from datetime import datetime, timedelta, timezone
+
+GEMINI_LOGS_DAY_RANGE = 30
 
 def convert_audio_to_wav(pcm_data: bytes) -> bytes:
         """Convert raw PCM data from Gemini TTS into a WAV audio blob"""
@@ -15,23 +17,30 @@ def convert_audio_to_wav(pcm_data: bytes) -> bytes:
             wav_file.writeframes(pcm_data)
         return wav_buffer.getvalue()
 
-def read_gemini_logs() -> List[Dict]:
+def get_current_gemini_usage() -> List[Dict]:
     """
     Access GCP Cloud Run logs for this app and retrieve the latest Gemini usage stats.
     We need this to pick up the logging from where it left off during the last application run.
     """
     load_dotenv()
     client = logging_v2.Client(project=os.getenv('GCP_PROJECT_ID')) # init the logging client
-    filter_str = 'textPayload:"GEMINI_API" AND textPayload:"model_name" AND textPayload:"tokens_generated"'
-    entries = client.list_entries( # this returns a generator
-         filter_=filter_str,
-         order_by=DESCENDING
+    cutoff_timestamp = (datetime.now(timezone.utc) - timedelta(days=GEMINI_LOGS_DAY_RANGE)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    filter_str = (
+        'resource.type="cloud_run_revision" AND '
+        'resource.labels.service_name="deutsch-tutor" AND '
+        'resource.labels.location="europe-west1" AND '
+        f'timestamp>="{cutoff_timestamp}" AND '
+        'textPayload:"GEMINI_API:" AND '
+        'textPayload:"model_name" AND '
+        'textPayload:"tokens_generated"'
     )
-    # retrieve the latest log entry from generator
-    latest_entry = ''
-    for entry in entries:
-        latest_entry = entry.payload
-        break
+    generator = client.list_entries( # this returns a generator
+         filter_=filter_str,
+         order_by=logging_v2.DESCENDING,
+         max_results=1 # we only need the last entry
+    )
+    # retrieve the log entry from generator
+    latest_entry = next(generator, None).payload
     if not latest_entry: # if no logs exist yet
          latest_log = []
     else:
