@@ -50,6 +50,9 @@ An interactive web application for learning German through translation practice.
 ### Monitoring & Evaluation
 - **Gemini API Logs**: there is a mechanism in place on the backend that logs gemini usage data (total token count and request count per model). This should give me an idea about whether or not the application can be comfortably used within Google's Gemini API Free Tier The plan is to moderately use the app for a week and check billing based on the stats.
 
+### Usage Cost
+After a week of test usage (1 user, 1-1.5 hours per day) the Gemini API bill is $0.05. That amounts to $0.20 per month and $2.40 or ~€2 a year.
+
 ## Getting Started
 
 ### Prerequisites
